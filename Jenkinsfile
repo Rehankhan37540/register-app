@@ -8,7 +8,7 @@ pipeline {
         jdk 'Java21'
         maven 'Maven3'
     }
-     environment {
+    environment {
         APP_NAME = "register-app-pipeline"
         RELEASE = "1.0.0"
         DOCKER_USER = "rehankhan37237"
@@ -56,48 +56,53 @@ pipeline {
             }
         }
 
-         stage("Quality Gate"){
-             steps {
-                 script {
-                     waitForQualityGate abortPipeline: false, credentialsId: 'jenkins-sonarqube-token'
-                    }	
-                }
+        stage("Quality Gate") {
+            steps {
+                script {
+                    waitForQualityGate abortPipeline: false, credentialsId: 'jenkins-sonarqube-token'
+                }	
             }
-            stage("Build & Push Docker Image") {
-                steps {
-                    script {
-                        docker.withRegistry('',DOCKER_PASS) {
+        }
+
+        stage("Build & Push Docker Image") {
+            steps {
+                script {
+                    docker.withRegistry('', DOCKER_PASS) {
                         docker_image = docker.build "${IMAGE_NAME}"
-            }
-                        docker.withRegistry('',DOCKER_PASS) {
-                            docker_image.push("${IMAGE_TAG}")
-                            docker_image.push('latest')
-                        }
                     }
-                }
-            }
-                stage("Trivy Scan") {
-                    steps {
-                        script {
-                            sh ('docker run -v /var/run/docker.sock:/var/run/docker.sock aquasec/trivy image rehankhan37237/register-app-pipeline:latest --no-progress --scanners vuln  --exit-code 0 --severity HIGH,CRITICAL --format table')
-                        }
-                    }
-                }
-                stage ('Cleanup Artifacts') {
-                    steps {
-                        script {
-                            sh "docker rmi ${IMAGE_NAME}:${IMAGE_TAG}"
-                            sh "docker rmi ${IMAGE_NAME}:latest"
-                            sh "docker system prune -f"
-                        }
-                    }
-                }
-                stage("Trigger CD Pipeline") {
-                    steps {
-                        script {
-                            sh "curl -v -k --user cloudeuser:${JENKINS_API_TOKEN} -X POST -H 'cache-control: no-cache' -H 'content-type: application/x-www-form-urlencoded' --data 'IMAGE_TAG=${IMAGE_TAG}' ec2-13-207-90-35.ap-south-1.compute.amazonaws.com:8080/job/gitops-register-app-cd/buildWithParameters?token=gitops-token'"
-                        }
+                    docker.withRegistry('', DOCKER_PASS) {
+                        docker_image.push("${IMAGE_TAG}")
+                        docker_image.push('latest')
                     }
                 }
             }
         }
+
+        stage("Trivy Scan") {
+            steps {
+                script {
+                    sh 'docker run -v /var/run/docker.sock:/var/run/docker.sock aquasec/trivy image rehankhan37237/register-app-pipeline:latest --no-progress --scanners vuln --exit-code 0 --severity HIGH,CRITICAL --format table'
+                }
+            }
+        }
+
+        stage("Cleanup Artifacts") {
+            steps {
+                script {
+                    sh "docker rmi ${IMAGE_NAME}:${IMAGE_TAG}"
+                    sh "docker rmi ${IMAGE_NAME}:latest"
+                    sh "docker system prune -f"
+                }
+            }
+        }
+
+        stage("Trigger CD Pipeline") {
+            steps {
+                script {
+                    def cdUrl = "http://ec2-13-207-90-35.ap-south-1.compute.amazonaws.com:8080/job/gitops-register-app-cd/buildWithParameters?token=gitops-token&IMAGE_TAG=${IMAGE_TAG}"
+                    sh "curl -v -k --user cloudeuser:${JENKINS_API_TOKEN} -X POST '${cdUrl}'"
+                }
+            }
+        }
+    }
+}
