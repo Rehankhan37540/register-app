@@ -5,8 +5,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="dark">
-  <meta name="description" content="Rehan Khan, aspiring cloud engineer and cloud architect from Ghazipur. AWS, Linux, CI/CD and GitOps projects.">
-  <title>Rehan Khan | Cloud Engineer in the making</title>
+  <meta name="description" content="Rehan Khan, aspiring Cloud Engineer and Cloud Architect from Ghazipur, Uttar Pradesh. AWS, Linux, CI/CD and GitOps projects.">
+  <title>Rehan Khan | Aspiring Cloud Engineer and Architect</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;700;800&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
@@ -106,7 +106,8 @@
     .learned b { color: var(--text); font-weight: 600; }
     .stack { color: var(--muted); font-size: .9rem; }
     .stack b { color: var(--text); font-weight: 600; }
-    .plink { justify-self: start; }
+    .plinks { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 4px; }
+    .loc { color: var(--muted); font-size: .95rem; margin-top: 14px; }
 
     /* contact */
     .contact-list { display: grid; gap: 14px; max-width: 520px; }
@@ -150,11 +151,13 @@
     <div class="wrap">
       <div>
         <h1>Rehan Khan</h1>
-        <p class="role">Cloud engineer in the making, aiming for cloud architect</p>
-        <p class="intro">I’m from Ghazipur, and I want to be the person who can design, build and run a complete system on the cloud. I learn by shipping real projects: serverless data pipelines, automated CI/CD and GitOps deployments on AWS.</p>
+        <p class="role">Aspiring Cloud Engineer and Cloud Architect</p>
+        <p class="loc">Ghazipur, Uttar Pradesh, India</p>
+        <p class="intro">I am building the skills to design, deploy and operate complete systems on the cloud. I learn by shipping real projects: a serverless data pipeline on AWS and an automated CI/CD and GitOps delivery pipeline.</p>
         <div class="cta">
           <a class="btn primary" href="#projects">See my projects</a>
-          <a class="btn ghost" href="https://github.com/Rehankhan37540" target="_blank" rel="noopener">GitHub profile</a>
+          <a class="btn ghost" href="https://github.com/Rehankhan37540" target="_blank" rel="noopener">GitHub</a>
+          <a class="btn ghost" href="https://www.linkedin.com/in/rehan-khan-ba814a355/" target="_blank" rel="noopener">LinkedIn</a>
         </div>
       </div>
 
@@ -195,8 +198,8 @@
   <section class="block about" id="about">
     <div class="wrap">
       <h2 class="title">About me</h2>
-      <p>My goal is to become a <strong>cloud engineer and cloud architect</strong>, someone who can handle the whole cloud journey: design the architecture, automate the delivery, secure it, monitor it and keep the cost under control.</p>
-      <p>I come from <strong>Ghazipur</strong> and I’m building my skills through hands-on work rather than only watching tutorials. When something breaks, I treat it as the best part of the lesson: permissions, timeouts, networking and wrong IP addresses have taught me more than any happy path.</p>
+      <p>My goal is to become a <strong>Cloud Engineer and Cloud Architect</strong> who can own the whole journey: design the architecture, automate delivery, secure the system, monitor it and keep costs under control.</p>
+      <p>I am based in <strong>Ghazipur, Uttar Pradesh</strong> and I build my skills through hands-on projects. Debugging real issues such as IAM permissions, timeouts, networking and build failures has taught me more than any tutorial, and it is the part of the work I value most.</p>
     </div>
   </section>
 
@@ -242,7 +245,7 @@
         <p class="desc">Uploads use pre-signed S3 URLs, so AWS credentials never touch the browser. Every file gets a JSON data-quality report (rows processed, duplicates removed, issues fixed). CloudWatch alarms and AWS Budgets keep it monitored and cost-safe.</p>
         <p class="learned"><b>What I learned:</b> IAM least-privilege permissions, Lambda timeout and memory tuning, CORS on both API Gateway and S3, Athena schema mismatches and ODBC authentication.</p>
         <p class="stack"><b>Stack:</b> Lambda, S3, API Gateway, Athena, IAM, CloudWatch, Python (Pandas), Power BI, HTML/JS</p>
-        <a class="btn ghost plink" href="https://lnkd.in/gZ99jrqj" target="_blank" rel="noopener">View code and setup guide</a>
+        <div class="plinks"><a class="btn ghost" href="https://github.com/Rehankhan37540/cloud-data-analytics-pipeline" target="_blank" rel="noopener">View code and setup guide</a></div>
       </article>
 
       <article class="project">
@@ -259,8 +262,12 @@
           <span class="step">Kubernetes</span>
         </div>
         <p class="desc">The CI job pushes a versioned image tag. A separate CD job updates the tag in a GitOps repository, and ArgoCD syncs the change to the cluster, so every deployment is traceable in Git and easy to roll back.</p>
-        <p class="learned"><b>What I learned:</b> fixing 401 errors caused by one wrong letter in a username, public versus private IPs inside a VPC, full disks on build agents, and why fixed image tags beat <i>latest</i>.</p>
-        <p class="stack"><b>Stack:</b> Jenkins, Maven, SonarQube, Docker, Trivy, ArgoCD, Kubernetes, AWS EC2, GitHub</p>
+        <p class="learned"><b>What I learned:</b> debugging authentication failures between Jenkins jobs, public versus private networking inside a VPC, managing disk space on build agents, and why versioned image tags are safer than <i>latest</i>.</p>
+        <p class="stack"><b>Stack:</b> Jenkins, Maven, SonarQube, Docker, Trivy, ArgoCD, Kubernetes (EKS), AWS EC2, GitHub</p>
+        <div class="plinks">
+          <a class="btn ghost" href="https://github.com/Rehankhan37540/register-app" target="_blank" rel="noopener">Application repository</a>
+          <a class="btn ghost" href="https://github.com/Rehankhan37540/gitops-register-app" target="_blank" rel="noopener">GitOps repository</a>
+        </div>
       </article>
     </div>
   </section>
@@ -270,16 +277,14 @@
       <h2 class="title">Contact</h2>
       <div class="contact-list">
         <a href="mailto:rehankhan37237@gmail.com"><span class="k">Email</span><span>rehankhan37237@gmail.com</span></a>
+        <a href="https://www.linkedin.com/in/rehan-khan-ba814a355/" target="_blank" rel="noopener"><span class="k">LinkedIn</span><span>Rehan Khan</span></a>
         <a href="https://github.com/Rehankhan37540" target="_blank" rel="noopener"><span class="k">GitHub</span><span>github.com/Rehankhan37540</span></a>
-        <!-- Add your LinkedIn profile here:
-        <a href="https://www.linkedin.com/in/YOUR-ID" target="_blank" rel="noopener"><span class="k">LinkedIn</span><span>linkedin.com/in/YOUR-ID</span></a>
-        -->
       </div>
     </div>
   </section>
 
   <footer>
-    <div class="wrap">Built by Rehan Khan. Deployed automatically with Jenkins, Docker and ArgoCD.</div>
+    <div class="wrap">Rehan Khan, Ghazipur, Uttar Pradesh. Built and deployed automatically with Jenkins, Docker, ArgoCD and Kubernetes.</div>
   </footer>
 
 </body>
