@@ -33,6 +33,7 @@
       font-size: 17px;
       -webkit-font-smoothing: antialiased;
     }
+    [hidden] { display: none !important; }
     a { color: inherit; }
     a:focus-visible, button:focus-visible { outline: 2px solid var(--cyan); outline-offset: 3px; border-radius: 4px; }
     .wrap { max-width: 1040px; margin: 0 auto; padding: 0 24px; }
@@ -164,9 +165,8 @@
       <div class="portrait">
         <div class="frame">
           <!-- Put your photo at webapp/src/main/webapp/images/profile.jpg -->
-          <img src="images/profile.jpg" alt="Portrait of Rehan Khan"
-               onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-          <span class="initials" style="display:none;" aria-hidden="true">RK</span>
+          <img id="profile-photo" src="images/profile.jpg" alt="Portrait of Rehan Khan">
+          <span id="profile-fallback" class="initials" hidden aria-hidden="true">RK</span>
         </div>
       </div>
     </div>
@@ -287,5 +287,21 @@
     <div class="wrap">Rehan Khan, Ghazipur, Uttar Pradesh. Built and deployed automatically with Jenkins, Docker, ArgoCD and Kubernetes.</div>
   </footer>
 
+  <script>
+    (function () {
+      var photo = document.getElementById('profile-photo');
+      var fallback = document.getElementById('profile-fallback');
+      if (!photo || !fallback) { return; }
+      function showFallback() {
+        photo.hidden = true;
+        fallback.hidden = false;
+      }
+      if (photo.complete && photo.naturalWidth === 0) {
+        showFallback();
+      } else {
+        photo.addEventListener('error', showFallback);
+      }
+    })();
+  </script>
 </body>
 </html>
